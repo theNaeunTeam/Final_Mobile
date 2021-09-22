@@ -9,7 +9,31 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Register from "./components/Register";
 import TimeCardHome from "./components/TimeCardHome";
-import 'react-native-gesture-handler';
+import "react-native-gesture-handler";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import axios from "axios";
+import * as SecureStore from "expo-secure-store";
+
+const defaultValue = [
+  {
+    isLogin: false,
+    id: "",
+    password: "",
+  },
+];
+
+function reducer(state = defaultValue, action = {}) {
+  if (action.type === "logOut") {
+    const copy = [...state];
+    copy[0].isLogin = false;
+    return copy;
+  } else {
+    return state;
+  }
+}
+
+const store = createStore(reducer);
 
 const App: () => Node = () => {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -23,6 +47,13 @@ const App: () => Node = () => {
         await SplashScreen.preventAutoHideAsync();
         // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync(Entypo.font);
+
+        await SecureStore.getItemAsync("id").then((res) => {
+          if (res !== "") {
+            setIsLogin(true);
+            console.log(res);
+          }
+        }).catch(error => console.log(error));
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -53,23 +84,25 @@ const App: () => Node = () => {
   }
 
   return (
-    <NavigationContainer>
+    <Provider store={store}>
       <StatusBar barStyle={"light-content"} />
       <SafeAreaView onLayout={onLayoutRootView} style={styles.pagerView}>
-        <Stack.Navigator
-          initialRouteName={isLogin ? "Time Card" : "Login Page"}>
-          <Stack.Screen name="Login Page" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen
-            name="Time Card"
-            component={TimeCardHome}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName={isLogin ? "Time Card" : "Login Page"}>
+            <Stack.Screen name="Login Page" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen
+              name="Time Card"
+              component={TimeCardHome}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
       </SafeAreaView>
-    </NavigationContainer>
+    </Provider>
   );
 };
 

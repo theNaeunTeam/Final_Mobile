@@ -8,13 +8,39 @@ import {
   TextInput,
   StyleSheet,
   Image,
-  TouchableOpacity, Pressable,
+  TouchableOpacity,
+  Pressable,
 } from "react-native";
 import splashImg from "../img/splash.png";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {connect} from "react-redux";
+import Log from "./Log";
+import axios from "axios";
+import * as SecureStore from 'expo-secure-store';
 
 function Login({navigation}) {
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+
+  const auth = async () => {
+    // const url = `https://kenken0803.herokuapp.com/TCauth?id=${id}&pw=${pw}`;
+    // try {
+    //   const res = await axios.get(url);
+    //   await console.log(res);
+      if (true){
+        await SecureStore.setItemAsync("id", id);
+        await SecureStore.setItemAsync("pw", pw);
+        await navigation.navigate("Time Card");
+      }else {
+        alert("로그인 실패");
+      }
+    // } catch (err) {
+    //   console.log(err);
+    //   alert(err);
+    // }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.viewTop}>
@@ -22,15 +48,33 @@ function Login({navigation}) {
       </View>
       <View style={styles.viewMiddle}>
         <View>
-        <Text style={styles.labelText}>아이디</Text>
-        <TextInput placeholder={"아이디"} style={styles.form} autoCapitalize={"none"} autoCorrect={false} returnKeyType={"next"}/>
+          <Text style={styles.labelText}>아이디</Text>
+          <TextInput
+            placeholder={"아이디"}
+            style={styles.form}
+            autoCapitalize={"none"}
+            autoCorrect={false}
+            returnKeyType={"next"}
+            onChangeText={(e => {
+              setId(e);
+            })}
+          />
         </View>
         <View>
           <Text style={styles.labelText}>비밀번호</Text>
-          <TextInput placeholder={"비밀번호"} style={styles.form} autoCapitalize={"none"} autoCorrect={false} returnKeyType={"done"}/>
+          <TextInput
+            placeholder={"비밀번호"}
+            style={styles.form}
+            autoCapitalize={"none"}
+            autoCorrect={false}
+            returnKeyType={"done"}
+            onChangeText={(e => {
+              setPw(e);
+            })}
+          />
         </View>
         <Pressable
-          onPress={() => navigation.navigate("Time Card")}
+          onPress={auth}
           style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
@@ -55,7 +99,7 @@ const styles = StyleSheet.create({
   viewMiddle: {
     flex: 2,
     backgroundColor: "#345B63",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   viewBottom: {
     flex: 0.5,
@@ -94,8 +138,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "600",
     marginLeft: 10,
-    fontSize:20
-  }
+    fontSize: 20,
+  },
 });
+
+// function setIdPw(state) {
+//   return {
+//     state: state,
+//   };
+// }
+
+// export default connect(setIdPw)(Login);
 
 export default Login;

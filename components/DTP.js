@@ -29,11 +29,11 @@ function DTP() {
   return (
     <View>
       <View>
-        <Button onPress={showDatepicker} title="Show date picker!" />
+        <Button onPress={showDatepicker} title="날짜를 선택해 주세요" />
       </View>
-      <View>
-        <Button onPress={showTimepicker} title="Show time picker!" />
-      </View>
+      {/*<View>*/}
+      {/*  <Button onPress={showTimepicker} title="Show time picker!" />*/}
+      {/*</View>*/}
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
