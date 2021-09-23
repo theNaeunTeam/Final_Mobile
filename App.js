@@ -17,20 +17,31 @@ import * as SecureStore from "expo-secure-store";
 
 const defaultValue = [
   {
-    isLogin: false,
-    id: "",
-    password: "",
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    wifiname: "AndroidWifi",
+    wifimac: "00:13:10:85:fe:01",
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    wifiname: "BlackFlame5",
+    wifimac: "4:d4:c4:c8:66:d4",
   },
 ];
 
 function reducer(state = defaultValue, action = {}) {
-  if (action.type === "logOut") {
-    const copy = [...state];
-    copy[0].isLogin = false;
-    return copy;
-  } else {
-    return state;
+  switch (action.type) {
+    case "logOut":
+    case "initDB":
+    default:
+      return state;
   }
+  // if (action.type === "logOut") {
+  //   const copy = [...state];
+  //   copy[0].isLogin = false;
+  //   return copy;
+  // } else {
+  //   return state;
+  // }
 }
 
 const store = createStore(reducer);
@@ -48,12 +59,14 @@ const App: () => Node = () => {
         // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync(Entypo.font);
 
-        await SecureStore.getItemAsync("id").then((res) => {
-          if (res !== "") {
-            setIsLogin(true);
-            console.log(res);
-          }
-        }).catch(error => console.log(error));
+        await SecureStore.getItemAsync("id")
+          .then(res => {
+            if (res !== "" || res !== null) {
+              setIsLogin(true);
+              console.log("자동 로그인 성공 => "+res);
+            }
+          })
+          .catch(error => console.log(error));
         // Artificially delay for two seconds to simulate a slow loading
         // experience. Please remove this if you copy and paste the code!
         await new Promise(resolve => setTimeout(resolve, 1000));

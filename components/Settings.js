@@ -13,19 +13,18 @@ import {connect} from "react-redux";
 import * as SecureStore from "expo-secure-store";
 import GetLocation from "./GetLocation";
 
-function Settings({navigation}) {
+function Settings(props) {
   return (
     <View>
         <GetLocation/>
         <Pressable
         style={styles.button}
         onPress={async () => {
-          // navigation.dispatch({type: "logOut"});
-          // console.log(navigation.dispatch)
+          // props.dispatch({type: "logOut"});
             try {
                 await SecureStore.setItemAsync("id", "");
                 await SecureStore.setItemAsync("pw", "");
-                await navigation.navigate("Login Page");
+                await props.navigation.navigate("Login Page");
             }catch (e){
                 console.log(e);
             }

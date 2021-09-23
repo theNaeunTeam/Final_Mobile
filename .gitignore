@@ -25,7 +25,6 @@ DerivedData
 #
 build/
 .idea
-.gradle
 local.properties
 *.iml
 
@@ -59,5 +58,5 @@ buck-out/
 /ios/Pods/
 
 # 프로젝트 제외 경로
-/android/
-/ios/
+#/android/
+#/ios/

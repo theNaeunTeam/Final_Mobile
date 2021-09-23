@@ -9,6 +9,7 @@ const net = () => {
     console.log('Is connected?', state.isConnected);
   });
 };
+
 const getSSID = () => {
   NetInfo.fetch('wifi').then(state => {
     console.log('SSID', state.details.ssid);

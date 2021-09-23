@@ -9,19 +9,20 @@ import {
   FlatList,
 } from "react-native";
 import GetLocation from "./GetLocation";
+import {connect} from "react-redux";
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    wifiname: "AndroidWifi",
-    wifimac: "00:13:10:85:fe:01",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    wifiname: "BlackFlame5",
-    wifimac: "4:d4:c4:c8:66:d4",
-  },
-];
+// const DATA = [
+//   {
+//     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+//     wifiname: "AndroidWifi",
+//     wifimac: "00:13:10:85:fe:01",
+//   },
+//   {
+//     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+//     wifiname: "BlackFlame5",
+//     wifimac: "4:d4:c4:c8:66:d4",
+//   },
+// ];
 
 const Item = ({wifiname, wifimac}) => (
   <View style={styles.item}>
@@ -30,7 +31,7 @@ const Item = ({wifiname, wifimac}) => (
   </View>
 );
 
-function WiFi() {
+function WiFi(props) {
   const renderItem = ({item}) => (
     <Item wifiname={item.wifiname} wifimac={item.wifimac} />
   );
@@ -39,7 +40,7 @@ function WiFi() {
     <View style={styles.container}>
       <View style={styles.viewTop}>
         <FlatList
-          data={DATA}
+          data={props.state}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
@@ -77,4 +78,11 @@ const styles = StyleSheet.create({
     borderStyle:'solid',
   },
 });
-export default WiFi;
+
+function getLoading(state) {
+  return {
+    state: state,
+  };
+}
+
+export default connect(getLoading)(WiFi);

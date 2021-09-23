@@ -18,7 +18,7 @@ import {connect} from "react-redux";
 
 const Drawer = createDrawerNavigator();
 
-function TimeCardHome({navigation},props) {
+function TimeCardHome({navigation}) {
   return (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen
@@ -82,7 +82,6 @@ function TimeCardHome({navigation},props) {
       <Drawer.Screen
         name="Settings"
         component={Settings}
-        navigation={navigation}
         options={{
           drawerIcon: props => (
             <MaterialIcons name="settings" size={24} color="black" />

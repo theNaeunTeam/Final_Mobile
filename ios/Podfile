@@ -4,7 +4,10 @@ require File.join(File.dirname(`node --print "require.resolve('react-native-unim
 
 platform :ios, '11.0'
 
-target 'untitled' do
+target 'TimeCard' do
+# # React Native Maps dependencies
+# rn_maps_path = '../node_modules/react-native-maps'
+# pod 'react-native-google-maps', :path => rn_maps_path
     use_unimodules!
   config = use_native_modules!
 
@@ -14,7 +17,7 @@ target 'untitled' do
     :hermes_enabled => false
   )
 
-  target 'untitledTests' do
+  target 'TimeCardTests' do
     inherit! :complete
     # Pods for testing
   end
