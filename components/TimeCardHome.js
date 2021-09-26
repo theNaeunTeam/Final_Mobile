@@ -20,15 +20,26 @@ const Drawer = createDrawerNavigator();
 
 function TimeCardHome({navigation}) {
   return (
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator initialRouteName="Home" screenOptions={{
+        drawerStyle: {
+            backgroundColor: '#ffbf3f',
+        },
+    }}>
       <Drawer.Screen
-        name="Home"
+        name="오늘의 출석"
         component={Home}
         options={{
           drawerIcon: props => <Entypo name="home" size={24} color="black" />,
           headerRight: props => (
             <EvilIcons name="refresh" size={30} color="black" />
-          ),
+          ),headerStyle: {
+                backgroundColor: '#ffbf3f',
+            },
+            // headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                color:'black'
+            },
         }}
       />
       <Drawer.Screen

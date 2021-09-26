@@ -24,26 +24,26 @@ import {connect} from "react-redux";
 //   },
 // ];
 
-const Item = ({wifiname, wifimac}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{wifiname}</Text>
-    <Text>{wifimac}</Text>
-  </View>
-);
-
 function WiFi(props) {
-  const renderItem = ({item}) => (
-    <Item wifiname={item.wifiname} wifimac={item.wifimac} />
-  );
-
   return (
     <View style={styles.container}>
       <View style={styles.viewTop}>
-        <FlatList
-          data={props.state}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
+        <Button
+          title={"test"}
+          onPress={() => {
+            console.log(props.state.data.wifiName);
+          }}
         />
+        {props.state.data.wifiName.map((res, index) => {
+          return (
+            <View>
+              <Text key={index} style={styles.item}>
+                와이파이 이름 : {props.state.data.wifiName[index]}
+              </Text>
+              <Text key={index+'a'} style={styles.item}>와이파이 주소 : {props.state.data.wifiAddr[index]}</Text>
+            </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    borderColor:'black',
-    borderStyle:'solid',
+    borderColor: "black",
+    borderStyle: "solid",
   },
 });
 

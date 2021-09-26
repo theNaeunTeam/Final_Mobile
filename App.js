@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect, useState} from "react";
 import type {Node} from "react";
-import {SafeAreaView, Text, View, StyleSheet, StatusBar} from "react-native";
+import React, {useCallback, useEffect, useState} from "react";
+import {SafeAreaView, StatusBar, StyleSheet} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import {Entypo} from "@expo/vector-icons";
 import * as Font from "expo-font";
@@ -12,28 +12,26 @@ import TimeCardHome from "./components/TimeCardHome";
 import "react-native-gesture-handler";
 import {Provider} from "react-redux";
 import {createStore} from "redux";
-import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
-const defaultValue = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    wifiname: "AndroidWifi",
-    wifimac: "00:13:10:85:fe:01",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    wifiname: "BlackFlame5",
-    wifimac: "4:d4:c4:c8:66:d4",
-  },
-];
+const defaultValue = {
+  wifiName: ["로드중.."],
+  wifiAddr: ["로드중.."],
+  btName: ["로드중.."],
+  btAddr: ["로드중.."],
+  nfcName: ["로드중.."],
+  nfcAddr: ["로드중.."],
+  gpsName: ["로드중.."],
+  gpsLat: ["로드중.."],
+  gpsLon: ["로드중.."],
+  groupName: "로드중..",
+};
 
 function reducer(state = defaultValue, action = {}) {
   switch (action.type) {
     case "logOut":
-    case "initDB":
-    default:
-      return state;
+    case "initDB": return action.payload;
+    default: return state;
   }
   // if (action.type === "logOut") {
   //   const copy = [...state];
@@ -61,9 +59,11 @@ const App: () => Node = () => {
 
         await SecureStore.getItemAsync("id")
           .then(res => {
-            if (res !== "" || res !== null) {
+            if (res === "" || res === null) {
+              setIsLogin(false);
+            } else {
               setIsLogin(true);
-              console.log("자동 로그인 성공 => "+res);
+              console.log("자동 로그인 성공 => " + res);
             }
           })
           .catch(error => console.log(error));

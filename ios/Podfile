@@ -1,7 +1,13 @@
 require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 require File.join(File.dirname(`node --print "require.resolve('@react-native-community/cli-platform-ios/package.json')"`), "native_modules")
 require File.join(File.dirname(`node --print "require.resolve('react-native-unimodules/package.json')"`), "cocoapods")
-
+# # add the Firebase pod for Google Analytics
+# pod 'Firebase/Analytics'
+# # or pod ‘Firebase/AnalyticsWithoutAdIdSupport’
+# # for Analytics without IDFA collection capability
+#
+# # add pods for any other desired Firebase products
+# # https://firebase.google.com/docs/ios/setup#available-pods
 platform :ios, '11.0'
 
 target 'TimeCard' do

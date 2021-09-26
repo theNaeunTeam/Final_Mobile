@@ -18,27 +18,15 @@ import {connect} from "react-redux";
 import Log from "./Log";
 import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
+import {fireBaseLogin} from "./doFireBase";
 
 function Login({navigation}) {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
   const auth = async () => {
-    // const url = `https://kenken0803.herokuapp.com/TCauth?id=${id}&pw=${pw}`;
-    // try {
-    //   const res = await axios.get(url);
-    //   await console.log(res);
-      if (true){
-        await SecureStore.setItemAsync("id", id);
-        await SecureStore.setItemAsync("pw", pw);
-        await navigation.navigate("Time Card");
-      }else {
-        alert("로그인 실패");
-      }
-    // } catch (err) {
-    //   console.log(err);
-    //   alert(err);
-    // }
+    await fireBaseLogin(id, pw, {navigation});
+
   };
 
   return (
@@ -48,9 +36,9 @@ function Login({navigation}) {
       </View>
       <View style={styles.viewMiddle}>
         <View>
-          <Text style={styles.labelText}>아이디</Text>
+          <Text style={styles.labelText}>이메일</Text>
           <TextInput
-            placeholder={"아이디"}
+            placeholder={"이메일"}
             style={styles.form}
             autoCapitalize={"none"}
             autoCorrect={false}

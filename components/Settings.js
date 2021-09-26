@@ -12,6 +12,7 @@ import {
 import {connect} from "react-redux";
 import * as SecureStore from "expo-secure-store";
 import GetLocation from "./GetLocation";
+import {firebaseLogout} from "./doFireBase";
 
 function Settings(props) {
   return (
@@ -19,15 +20,8 @@ function Settings(props) {
         <GetLocation/>
         <Pressable
         style={styles.button}
-        onPress={async () => {
-          // props.dispatch({type: "logOut"});
-            try {
-                await SecureStore.setItemAsync("id", "");
-                await SecureStore.setItemAsync("pw", "");
-                await props.navigation.navigate("Login Page");
-            }catch (e){
-                console.log(e);
-            }
+        onPress={()=>{
+          firebaseLogout(props)
         }}>
         <Text style={styles.labelText}>로그아웃</Text>
       </Pressable>
