@@ -22,6 +22,7 @@
     "expo-location": "^12.1.2",
     "expo-secure-store": "^10.2.0",
     "expo-splash-screen": "^0.11.4",
+    "expo-task-manager": "^9.2.2",
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-ble-manager": "^7.6.1",

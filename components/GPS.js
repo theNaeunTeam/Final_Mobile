@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
   View,
   Button,
@@ -7,39 +7,77 @@ import {
   Alert,
   StyleSheet,
   Dimensions,
+  ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import MapView, {Circle, Marker} from "react-native-maps";
+import {connect} from "react-redux";
 
-function GPS() {
+function GPS(props) {
+  const [loading, setLoading] = useState(true);
+  const [region, setRegion] = useState({
+    latitude: 35.172912,
+    longitude: 129.127699,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
+
+  useEffect(() => {
+    setRegion({
+      latitude: parseFloat(props.state.data.gpsLat),
+      longitude: parseFloat(props.state.data.gpsLon),
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+        }
+    )
+    setLoading(false);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: 35.172912,
-          longitude: 129.127699,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}>
-        <Marker
-          coordinate={{latitude: 35.172912, longitude: 129.127699}}
-          title="this is a marker"
-          description="this is a marker example"
-        />
-        <Circle
-          center={{
-            latitude: 35.172912,
-            longitude: 129.127699,
-          }}
-          radius={500}
-          strokeWidth={1}
-          strokeColor={"#1a66ff"}
-          fillColor={"rgba(230,238,255,0.5)"}
-        />
-      </MapView>
+      {loading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <MapView
+          style={styles.map}
+          region={region}
+          // initialRegion={{
+          //   latitude: `${parseFloat(lat)}`,
+          //   longitude: `${parseFloat(lon)}`,
+          //   latitudeDelta: 0.01,
+          //   longitudeDelta: 0.01,
+          // }}>
+          >
+          <Marker
+            coordinate={{latitude: region.latitude, longitude: region.longitude}}
+            title="this is a marker"
+            description="this is a marker example"
+          />
+          <Circle
+            center={{latitude: region.latitude, longitude: region.longitude}}
+            radius={500}
+            strokeWidth={1}
+            strokeColor={"#1a66ff"}
+            fillColor={"rgba(230,238,255,0.5)"}
+          />
+        </MapView>
+      )}
       <View style={styles.container}>
-          <Text>            latitude: 35.172912,
-              longitude: 129.127699</Text>
+        <ScrollView style={styles.viewTop}>
+          {props.state.data.gpsName.map((res, index) => {
+            return (
+              <View key={index + "d"}>
+                <Text key={index + "a"} />
+                <Text style={styles.buttonText} key={index + "b"}>
+                  장소 명 : {props.state.data.gpsName}
+                </Text>
+                <Text key={index + "c"}>위도 : {props.state.data.gpsLat}</Text>
+                <Text key={index + "d"}>경도 : {props.state.data.gpsLon}</Text>
+                <Text key={index + "e"} />
+              </View>
+            );
+          })}
+        </ScrollView>
       </View>
     </View>
   );
@@ -48,18 +86,18 @@ function GPS() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    fontSize: 15,
+    color: "#112031",
+    textAlign: "center",
+    fontWeight: "bold",
+    margin: 1,
   },
   viewTop: {
     flex: 1,
-    backgroundColor: "#D4ECDD",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  viewMiddle: {
-    flex: 1,
-    backgroundColor: "#345B63",
-    justifyContent: "center",
-    alignItems: "center",
   },
   map: {
     width: Dimensions.get("window").width,
@@ -67,4 +105,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-export default GPS;
+
+function getLoading(state) {
+  return {
+    state: state,
+  };
+}
+
+export default connect(getLoading)(GPS);

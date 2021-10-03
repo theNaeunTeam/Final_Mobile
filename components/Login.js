@@ -59,6 +59,7 @@ function Login({navigation}) {
             onChangeText={(e => {
               setPw(e);
             })}
+            secureTextEntry={true}
           />
         </View>
         <Pressable

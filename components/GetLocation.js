@@ -3,6 +3,21 @@ import {View, Button, Platform, Text, Alert, StyleSheet, Pressable} from 'react-
 import NetInfo, {NetInfoStateType} from '@react-native-community/netinfo';
 import * as Location from 'expo-location';
 
+import { LocationGeofencingEventType } from 'expo-location';
+import * as TaskManager from 'expo-task-manager';
+
+TaskManager.defineTask('gfgf', ({ data: { eventType, region }, error }) => {
+    if (error) {
+        // check `error.message` for more details.
+        return;
+    }
+    if (eventType === LocationGeofencingEventType.Enter) {
+        console.log("You've entered region:", region);
+    } else if (eventType === LocationGeofencingEventType.Exit) {
+        console.log("You've left region:", region);
+    }
+});
+
 const net = () => {
   NetInfo.fetch().then(state => {
     console.log('Connection type', state.type);
@@ -30,6 +45,17 @@ const getGPS = async () => {
   }
 };
 
+const geofence = async () => {
+    await Location.startGeofencingAsync('gfgf',[{
+        identifier:'home',
+        latitude:35.172912,
+        longitude:129.127699,
+        radius:500,
+    }]).then(res=>{
+        console.log(res);
+    }).catch(error => console.log(error));
+}
+
 function GetLocation() {
   return (
     <View>
@@ -42,6 +68,9 @@ function GetLocation() {
       <View>
         <Button style={styles.button} onPress={getGPS} title="getGPS" />
       </View>
+        <View>
+            <Button style={styles.button} onPress={geofence} title="geofence" />
+        </View>
     </View>
   );
 }

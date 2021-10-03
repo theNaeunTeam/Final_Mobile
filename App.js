@@ -1,37 +1,40 @@
-import type {Node} from "react";
-import React, {useCallback, useEffect, useState} from "react";
-import {SafeAreaView, StatusBar, StyleSheet} from "react-native";
-import * as SplashScreen from "expo-splash-screen";
-import {Entypo} from "@expo/vector-icons";
-import * as Font from "expo-font";
-import Login from "./components/Login";
-import {NavigationContainer} from "@react-navigation/native";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import Register from "./components/Register";
-import TimeCardHome from "./components/TimeCardHome";
-import "react-native-gesture-handler";
-import {Provider} from "react-redux";
-import {createStore} from "redux";
-import * as SecureStore from "expo-secure-store";
+import type {Node} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import * as SplashScreen from 'expo-splash-screen';
+import {Entypo} from '@expo/vector-icons';
+import * as Font from 'expo-font';
+import Login from './components/Login';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Register from './components/Register';
+import TimeCardHome from './components/TimeCardHome';
+import 'react-native-gesture-handler';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import * as SecureStore from 'expo-secure-store';
 
 const defaultValue = {
-  wifiName: ["로드중.."],
-  wifiAddr: ["로드중.."],
-  btName: ["로드중.."],
-  btAddr: ["로드중.."],
-  nfcName: ["로드중.."],
-  nfcAddr: ["로드중.."],
-  gpsName: ["로드중.."],
-  gpsLat: ["로드중.."],
-  gpsLon: ["로드중.."],
-  groupName: "로드중..",
+  wifiName: ['로드중..'],
+  wifiAddr: ['로드중..'],
+  btName: ['로드중..'],
+  btAddr: ['로드중..'],
+  nfcName: ['로드중..'],
+  nfcAddr: ['로드중..'],
+  gpsName: ['로드중..'],
+  gpsLat: ['로드중..'],
+  gpsLon: ['로드중..'],
+  groupName: '로드중..',
+  refreshTrigger: true,
 };
 
 function reducer(state = defaultValue, action = {}) {
   switch (action.type) {
-    case "logOut":
-    case "initDB": return action.payload;
-    default: return state;
+    case 'initDB':
+      console.log('이닛디비 리듀서 콜');
+      return action.payload;
+    default:
+      return state;
   }
   // if (action.type === "logOut") {
   //   const copy = [...state];
@@ -57,13 +60,13 @@ const App: () => Node = () => {
         // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync(Entypo.font);
 
-        await SecureStore.getItemAsync("id")
+        await SecureStore.getItemAsync('id')
           .then(res => {
-            if (res === "" || res === null) {
+            if (res === '' || res === null) {
               setIsLogin(false);
             } else {
               setIsLogin(true);
-              console.log("자동 로그인 성공 => " + res);
+              console.log('자동 로그인 성공 => ' + res);
             }
           })
           .catch(error => console.log(error));
@@ -98,11 +101,11 @@ const App: () => Node = () => {
 
   return (
     <Provider store={store}>
-      <StatusBar barStyle={"light-content"} />
+      <StatusBar barStyle={'light-content'} />
       <SafeAreaView onLayout={onLayoutRootView} style={styles.pagerView}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName={isLogin ? "Time Card" : "Login Page"}>
+            initialRouteName={isLogin ? 'Time Card' : 'Login Page'}>
             <Stack.Screen name="Login Page" component={Login} />
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen
@@ -122,7 +125,7 @@ const App: () => Node = () => {
 const styles = StyleSheet.create({
   pagerView: {
     flex: 1,
-    backgroundColor: "#112031",
+    backgroundColor: '#112031',
   },
 });
 

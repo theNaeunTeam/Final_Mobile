@@ -11,6 +11,7 @@ function DTP() {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
+    console.log(date)
   };
 
   const showMode = currentMode => {

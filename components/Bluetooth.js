@@ -1,34 +1,59 @@
-import React, {useState} from 'react';
-import {View, Button, Platform, Text, Alert, StyleSheet} from 'react-native';
+import React, {useState} from "react";
+import {
+    View,
+    Button,
+    Platform,
+    Text,
+    Alert,
+    StyleSheet,
+    FlatList,
+} from "react-native";
+import GetLocation from "./GetLocation";
+import {connect} from "react-redux";
 
-function Bluetooth() {
-
+function Bluetooth(props) {
     return (
         <View style={styles.container}>
             <View style={styles.viewTop}>
-                <Text>블투</Text>
-            </View>
-            <View style={styles.viewMiddle}>
-                <Text>메인화면</Text>
+                {props.state.data.btName.map((res, index) => {
+                    return (
+                        <View style={styles.item}>
+                            <Text key={index} style={styles.title}>{res}</Text>
+                            <Text key={index + "a"}>{props.state.data.btAddr[index]}</Text>
+                        </View>
+                    );
+                })}
             </View>
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
     viewTop: {
         flex: 1,
-        backgroundColor: "#D4ECDD",
-        justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
-    viewMiddle: {
-        flex: 1,
-        backgroundColor: "#345B63",
-        justifyContent: "center",
-        alignItems: "center"
+    item: {
+        borderWidth: 1,
+        borderColor: "#333",
+        padding: 20,
+        margin: 10,
+        width: "95%",
+        alignItems: "center",
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: "bold",
     },
 });
-export default Bluetooth;
+
+function getLoading(state) {
+    return {
+        state: state,
+    };
+}
+
+export default connect(getLoading)(Bluetooth);
