@@ -10,8 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.11",
     "@react-native-community/datetimepicker": "^3.5.2",
-    "@react-native-community/netinfo": "^6.0.2",
     "@react-native-firebase/app": "^12.8.0",
     "@react-native-firebase/auth": "^12.8.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
@@ -20,12 +20,10 @@
     "@react-navigation/native-stack": "^6.1.0",
     "axios": "^0.21.4",
     "expo-location": "^12.1.2",
-    "expo-secure-store": "^10.2.0",
     "expo-splash-screen": "^0.11.4",
     "expo-task-manager": "^9.2.2",
     "react": "17.0.2",
     "react-native": "0.65.1",
-    "react-native-ble-manager": "^7.6.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-maps": "^0.29.3",
     "react-native-pager-view": "^5.4.4",
@@ -34,7 +32,8 @@
     "react-native-screens": "^3.7.2",
     "react-native-unimodules": "^0.14.8",
     "react-redux": "^7.2.5",
-    "redux": "^4.1.1"
+    "redux": "^4.1.1",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@babel/core": "7.15.5",

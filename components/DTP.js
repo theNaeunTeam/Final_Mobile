@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Button, Platform, Text, Alert, StyleSheet} from 'react-native';
+import {View, Button, Platform} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 function DTP() {

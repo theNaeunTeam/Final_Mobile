@@ -10,10 +10,8 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
-import DTP from './DTP';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 
 function Log() {
@@ -41,28 +39,7 @@ function Log() {
         setShow(false);
       }
       if (date) setDate(date);
-      SecureStore.getItemAsync('id').then(async res => {
-        const newDate = date.toISOString().split('T')[0];
-        const url = `https://kenken0803.herokuapp.com/timeCardGetLog`;
-        await axios
-          .post(url, {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Content-Type': 'application/json;charset=utf-8',
-            },
-            email: res,
-            date: newDate,
-          })
-          .then(res => {
-            if (res.data[0].curDate) {
-              setBottomView(res.data[0]);
-            }
-          })
-          .catch(e => {
-            Alert.alert('데이터가 없습니다');
-            console.log(e);
-          });
-      });
+
     },
     [],
   );
@@ -100,80 +77,6 @@ function Log() {
           />
         )}
       </View>
-      <ScrollView style={styles.container}>
-        <View>
-          {bottomView.startTime && (
-            <View style={styles.item}>
-              <MaterialCommunityIcons
-                name="airplane-takeoff"
-                size={24}
-                color="black"
-              />
-              <Text style={styles.title}>
-                {' '}
-                출근 시간 : {bottomView.startTime}
-              </Text>
-            </View>
-          )}
-          {bottomView.goOutsideStart && (
-            <View style={styles.item}>
-              <MaterialCommunityIcons
-                name="shield-airplane-outline"
-                size={24}
-                color="black"
-              />
-              <Text style={styles.title}>
-                {' '}
-                외출 시작 : {bottomView.goOutsideStart}
-              </Text>
-            </View>
-          )}
-          {bottomView.goOutsideEnd && (
-            <View style={styles.item}>
-              <MaterialCommunityIcons
-                name="shield-airplane"
-                size={24}
-                color="black"
-              />
-              <Text style={styles.title}>
-                {' '}
-                외츌 종료 : {bottomView.goOutsideEnd}
-              </Text>
-            </View>
-          )}
-          {bottomView.endTime && (
-            <View style={styles.item}>
-              <MaterialCommunityIcons
-                name="airplane-landing"
-                size={24}
-                color="black"
-              />
-              <Text style={styles.title}>
-                {' '}
-                퇴근 시간 : {bottomView.endTime}
-              </Text>
-            </View>
-          )}
-          {bottomView.msEndTime - bottomView.msStartTime >= 0 && (
-            <View style={styles.item}>
-              <MaterialCommunityIcons name="airplane" size={24} color="black" />
-              <Text style={styles.title}>
-                {' '}
-                근무 시간 :{' '}
-                {Math.floor(
-                    (bottomView.msEndTime - bottomView.msStartTime) / 60000 / 60,
-                )}
-                시간
-                {Math.floor(
-                    ((bottomView.msEndTime - bottomView.msStartTime) / 60000) %
-                    60,
-                )}{' '}
-                분
-              </Text>
-            </View>
-          )}
-        </View>
-      </ScrollView>
     </View>
   );
 }
@@ -204,6 +107,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center',
+    color:'black',
   },
   item: {
     borderWidth: 1,

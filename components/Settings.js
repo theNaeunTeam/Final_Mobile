@@ -1,18 +1,15 @@
 import React, {useState, useContext} from "react";
 import {
   View,
-  Button,
-  Platform,
   Text,
-  Alert,
   StyleSheet,
   Pressable,
 } from "react-native";
 
 import {connect} from "react-redux";
-import * as SecureStore from "expo-secure-store";
 import GetLocation from "./GetLocation";
 import {firebaseLogout} from "./doFireBase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Settings(props) {
   return (
@@ -21,7 +18,8 @@ function Settings(props) {
         <Pressable
         style={styles.button}
         onPress={()=>{
-          firebaseLogout(props)
+          AsyncStorage.clear();
+          props.navigation.navigate('Login Page');
         }}>
         <Text style={styles.labelText}>로그아웃</Text>
       </Pressable>
