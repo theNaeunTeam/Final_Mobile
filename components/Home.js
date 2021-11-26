@@ -92,13 +92,13 @@ function Home(props) {
           <ActivityIndicator size="large" />
         ) : (
           <>
+            <FCM/>
             <Text style={styles.buttonTextAppr}>
               최초 승인 대기 {list3.length} 건이 있습니다.
             </Text>
             <Text style={styles.buttonTextComp}>
               완료 처리 대기 {list2.length} 건이 있습니다.
             </Text>
-            <FCM/>
           </>
         )}
       </View>
