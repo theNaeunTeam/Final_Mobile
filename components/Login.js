@@ -24,7 +24,6 @@ function Login({navigation}) {
       if (res.status === 200) {
         AsyncStorage.setItem('ownerToken', res.headers['x-auth-token']);
         AsyncStorage.setItem('o_sNumber', id);
-        alert('가게 로그인 성공');
         dispatch({type: 'ownerMode', payload: id});
         navigation.navigate('Main');
       } else {

@@ -8,7 +8,6 @@ import {
 
 import {connect} from "react-redux";
 import GetLocation from "./GetLocation";
-import {firebaseLogout} from "./doFireBase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Settings(props) {

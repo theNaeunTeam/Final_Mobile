@@ -15,6 +15,7 @@ import Log from './Log';
 import Settings from './Settings';
 import WiFi from './WiFi';
 import {connect, useDispatch} from 'react-redux';
+import AddProduct from "./AddProduct";
 
 const Drawer = createDrawerNavigator();
 
@@ -54,8 +55,8 @@ function Main(props) {
                 }}
             />
             <Drawer.Screen
-                name="LOG"
-                component={Log}
+                name="상품등록"
+                component={AddProduct}
                 options={{
                     drawerIcon: props => (
                         <Ionicons name="receipt" size={24} color="black"/>
@@ -67,54 +68,54 @@ function Main(props) {
                     ),
                 }}
             />
+            {/*<Drawer.Screen*/}
+            {/*    name="GPS information"*/}
+            {/*    component={GPS}*/}
+            {/*    options={{*/}
+            {/*        drawerIcon: props => (*/}
+            {/*            <MaterialIcons name="gps-fixed" size={24} color="black"/>*/}
+            {/*        ),*/}
+            {/*        headerRight: props => (*/}
+            {/*            <Pressable onPress={() => dispatch({type: 'switch'})}>*/}
+            {/*                <EvilIcons name="refresh" size={30} color="black"/>*/}
+            {/*            </Pressable>*/}
+            {/*        ),*/}
+            {/*    }}*/}
+            {/*/>*/}
+            {/*<Drawer.Screen*/}
+            {/*    name="WiFi information"*/}
+            {/*    component={WiFi}*/}
+            {/*    options={{*/}
+            {/*        drawerIcon: props => (*/}
+            {/*            <AntDesign name="wifi" size={24} color="black"/>*/}
+            {/*        ),*/}
+            {/*        headerRight: props => (*/}
+            {/*            <Pressable onPress={() => dispatch({type: 'switch'})}>*/}
+            {/*                <EvilIcons name="refresh" size={30} color="black"/>*/}
+            {/*            </Pressable>*/}
+            {/*        ),*/}
+            {/*    }}*/}
+            {/*/>*/}
+            {/*<Drawer.Screen*/}
+            {/*    name="Bluetooth information"*/}
+            {/*    component={Bluetooth}*/}
+            {/*    options={{*/}
+            {/*        drawerIcon: props => (*/}
+            {/*            <MaterialIcons*/}
+            {/*                name="settings-bluetooth"*/}
+            {/*                size={24}*/}
+            {/*                color="black"*/}
+            {/*            />*/}
+            {/*        ),*/}
+            {/*        headerRight: props => (*/}
+            {/*            <Pressable onPress={() => dispatch({type: 'switch'})}>*/}
+            {/*                <EvilIcons name="refresh" size={30} color="black"/>*/}
+            {/*            </Pressable>*/}
+            {/*        ),*/}
+            {/*    }}*/}
+            {/*/>*/}
             <Drawer.Screen
-                name="GPS information"
-                component={GPS}
-                options={{
-                    drawerIcon: props => (
-                        <MaterialIcons name="gps-fixed" size={24} color="black"/>
-                    ),
-                    headerRight: props => (
-                        <Pressable onPress={() => dispatch({type: 'switch'})}>
-                            <EvilIcons name="refresh" size={30} color="black"/>
-                        </Pressable>
-                    ),
-                }}
-            />
-            <Drawer.Screen
-                name="WiFi information"
-                component={WiFi}
-                options={{
-                    drawerIcon: props => (
-                        <AntDesign name="wifi" size={24} color="black"/>
-                    ),
-                    headerRight: props => (
-                        <Pressable onPress={() => dispatch({type: 'switch'})}>
-                            <EvilIcons name="refresh" size={30} color="black"/>
-                        </Pressable>
-                    ),
-                }}
-            />
-            <Drawer.Screen
-                name="Bluetooth information"
-                component={Bluetooth}
-                options={{
-                    drawerIcon: props => (
-                        <MaterialIcons
-                            name="settings-bluetooth"
-                            size={24}
-                            color="black"
-                        />
-                    ),
-                    headerRight: props => (
-                        <Pressable onPress={() => dispatch({type: 'switch'})}>
-                            <EvilIcons name="refresh" size={30} color="black"/>
-                        </Pressable>
-                    ),
-                }}
-            />
-            <Drawer.Screen
-                name="Settings"
+                name="설정"
                 component={Settings}
                 options={{
                     drawerIcon: props => (
