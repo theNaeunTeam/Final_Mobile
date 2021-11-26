@@ -12,6 +12,8 @@ import {
 import {connect, useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {client} from '../lib/client';
+import FCM from "./FCM";
+
 
 function Home(props) {
   const [list, setList] = useState([]);
@@ -28,6 +30,8 @@ function Home(props) {
     // Location.getCurrentPositionAsync().then(res => console.log(res));
     // Location.requestForegroundPermissionsAsync();
   }, [refreshReducer]);
+
+
 
   useEffect(() => {
     const backAction = () => {
@@ -94,6 +98,7 @@ function Home(props) {
             <Text style={styles.buttonTextComp}>
               완료 처리 대기 {list2.length} 건이 있습니다.
             </Text>
+            <FCM/>
           </>
         )}
       </View>
