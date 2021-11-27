@@ -20,23 +20,23 @@ function Home(props) {
   const [list3, setList3] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const {authReducer, refreshReducer} = useSelector(state => state);
+  const {refreshReducer} = useSelector(state => state);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect( () => {
     init();
   }, [refreshReducer]);
 
   useEffect(() => {
     const backAction = () => {
-      Alert.alert('종료하시겠습니까?', 'Are you sure you want to go back?', [
+      Alert.alert('종료하시겠습니까?', '종료버튼을 누르면 어플을 종료합니다', [
         {
-          text: 'Cancel',
+          text: '취소',
           onPress: () => null,
           style: 'cancel',
         },
         {
-          text: 'YES',
+          text: '종료',
           onPress: async () => {
             console.log('exit');
             await BackHandler.exitApp();
@@ -56,7 +56,6 @@ function Home(props) {
 
   const init = async () => {
     setLoading(true);
-    console.log('로딩ㅁㅇㄴㄹㅇㄴㅁㄹㅇㅁㄴㄹㄴㅁㄹㅇㄴ');
     const URL = `https://thenaeunteam.link/owner/reserveList`;
 
     const o_sNumber = await AsyncStorage.getItem('o_sNumber');
@@ -64,7 +63,6 @@ function Home(props) {
 
     try {
       const res = await client.get(`${URL}?g_owner=${o_sNumber}`);
-      console.log(res.data);
       const firstWait = res.data.filter(arr => arr.r_status === 0);
       const compWait = res.data.filter(
         arr => arr.r_status !== 0 && arr.r_status !== 3,
@@ -168,14 +166,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonTextAppr: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#C85C5C',
     textAlign: 'center',
     fontWeight: 'bold',
     margin: 2,
   },
   buttonTextComp: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#66806A',
     textAlign: 'center',
     fontWeight: 'bold',

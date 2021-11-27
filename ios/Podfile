@@ -10,7 +10,7 @@ require File.join(File.dirname(`node --print "require.resolve('react-native-unim
 # # https://firebase.google.com/docs/ios/setup#available-pods
 platform :ios, '11.0'
 
-target 'TimeCard' do
+target 'TanDaOwner' do
 # # React Native Maps dependencies
 # rn_maps_path = '../node_modules/react-native-maps'
 # pod 'react-native-google-maps', :path => rn_maps_path
@@ -23,7 +23,7 @@ target 'TimeCard' do
     :hermes_enabled => false
   )
 
-  target 'TimeCardTests' do
+  target 'TanDaOwnerTests' do
     inherit! :complete
     # Pods for testing
   end

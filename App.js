@@ -2,7 +2,7 @@ import type {Node} from 'react';
 import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import {Entypo} from '@expo/vector-icons';
+import {Entypo, Ionicons} from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import Login from './components/Login';
 import {NavigationContainer} from '@react-navigation/native';
@@ -108,7 +108,19 @@ const App: () => Node = () => {
                                 headerShown: false,
                             }}
                         />
-                        <Stack.Screen name={'예약상세'} component={Detail}/>
+                        <Stack.Screen name={'예약상세'} component={Detail}
+                                      options={{
+                                          headerStyle: {
+                                              backgroundColor: '#ffbf3f',
+                                          },
+                                          // headerTintColor: '#fff',
+                                          headerTitleStyle: {
+                                              fontWeight: 'bold',
+                                              color: 'black',
+                                              fontSize: 20,
+                                          },
+                                          headerTitleAlign: 'center',
+                                      }}/>
                     </Stack.Navigator>
                 </NavigationContainer>
             </SafeAreaView>

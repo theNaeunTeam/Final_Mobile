@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {
   Image,
+  Keyboard,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {client} from '../lib/client';
@@ -43,44 +45,46 @@ function Login({navigation}) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.viewTop}>
-        <Image source={logo} resizeMode="contain" style={{width: '100%'}} />
-      </View>
-      <View style={styles.viewMiddle}>
-        <View>
-          <Text style={styles.labelText}>사업자번호</Text>
-          <TextInput
-            placeholder={'하이픈 없이 입력해 주세요'}
-            style={styles.form}
-            autoCapitalize={'none'}
-            autoCorrect={false}
-            returnKeyType={'next'}
-            onChangeText={e => {
-              setId(e);
-            }}
-            keyboardType={'numeric'}
-          />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <View style={styles.viewTop}>
+            <Image source={logo} resizeMode="contain" style={{width: '50%'}}/>
+          </View>
+          <View style={styles.viewMiddle}>
+            <View>
+              <Text style={styles.labelText}>사업자번호</Text>
+              <TextInput
+                  placeholder={'하이픈 없이 입력해 주세요'}
+                  style={styles.form}
+                  autoCapitalize={'none'}
+                  autoCorrect={false}
+                  returnKeyType={'next'}
+                  onChangeText={e => {
+                    setId(e);
+                  }}
+                  keyboardType={'numeric'}
+              />
+            </View>
+            <View>
+              <Text style={styles.labelText}>비밀번호</Text>
+              <TextInput
+                  placeholder={'비밀번호'}
+                  style={styles.form}
+                  autoCapitalize={'none'}
+                  autoCorrect={false}
+                  returnKeyType={'done'}
+                  onChangeText={e => {
+                    setPw(e);
+                  }}
+                  secureTextEntry={true}
+              />
+            </View>
+            <Pressable style={styles.button} onPress={login}>
+              <Text style={styles.buttonText}>로그인</Text>
+            </Pressable>
+          </View>
         </View>
-        <View>
-          <Text style={styles.labelText}>비밀번호</Text>
-          <TextInput
-            placeholder={'비밀번호'}
-            style={styles.form}
-            autoCapitalize={'none'}
-            autoCorrect={false}
-            returnKeyType={'done'}
-            onChangeText={e => {
-              setPw(e);
-            }}
-            secureTextEntry={true}
-          />
-        </View>
-        <Pressable style={styles.button} onPress={login}>
-          <Text style={styles.buttonText}>로그인</Text>
-        </Pressable>
-      </View>
-    </View>
+      </TouchableWithoutFeedback>
   );
 }
 
@@ -93,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F0E9D2',
     alignItems: 'center',
+    justifyContent: 'center'
   },
   viewMiddle: {
     margin: 50,
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     textAlign: 'center',
-    fontWeight:'bold'
+    fontWeight: 'bold'
   },
   labelText: {
     color: '#181D31',

@@ -4,10 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
 import {client} from '../lib/client';
 
-const ViewContainer = styled.View`
-  flex: 1;
-  background-color: white;
-`;
 
 const DetailText = styled.Text`
   flex: 1;
@@ -69,7 +65,7 @@ export default function Detail(props) {
   };
 
   return (
-    <ViewContainer style={styles.container}>
+    <View style={styles.container}>
       <View>
         <RowView>
           <DetailText>상품 명 : </DetailText>
@@ -147,7 +143,7 @@ export default function Detail(props) {
           </Pressable>
         </>
       )}
-    </ViewContainer>
+    </View>
   );
 }
 
@@ -156,7 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(240, 233, 210, 0.7)',
     flex: 1,
     margin: 10,
-    padding: 10,
+    padding: 15,
     justifyContent:"space-around",
   },
   viewTop: {

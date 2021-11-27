@@ -3,6 +3,8 @@ import messaging from '@react-native-firebase/messaging';
 import {Alert, AppRegistry, Text} from 'react-native';
 import App from '../App';
 import {client} from '../lib/client';
+import {useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function FCM() {
   const [show, setShow] = useState(false);
@@ -14,6 +16,8 @@ export default function FCM() {
     img: '',
   });
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     requestUserPermission();
 
@@ -22,7 +26,12 @@ export default function FCM() {
       const {data} = remoteMessage;
       Alert.alert(
         data.title,
-        data.body + data.r_customOrder + data.r_firstTime + '시',
+        data.body +
+          ' 요청사항 : ' +
+          data.r_customOrder +
+          ' 예약시간 : ' +
+          data.r_firstTime +
+          '시',
       );
     });
 
@@ -32,6 +41,9 @@ export default function FCM() {
   // {"data": {"body": "예약현황 페이지를 확인해 주세요", "image": " ", "r_customOrder": "제가 직접 받음", "r_firstTime": "18:00", "title": "1개의 새 예약건이 있습니다"}, "from": "416664792102", "messageId": "0:1637915863603288%b4a2312af9fd7ecd", "sentTime": 1637915863592, "ttl": 2419200}
 
   async function requestUserPermission() {
+    const noPush = await AsyncStorage.getItem('noPush');
+    if (noPush) return false;
+
     const authStatus = await messaging().requestPermission();
     const enabled =
       authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -52,6 +64,7 @@ export default function FCM() {
   }
 
   messaging().setBackgroundMessageHandler(async remoteMessage => {
+    dispatch({type: 'switch'});
     console.log('Message handled in the background!', remoteMessage);
   });
 

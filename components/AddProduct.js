@@ -18,6 +18,8 @@ import styled from 'styled-components/native';
 const ViewItem = styled.View`
   margin: 10px;
   padding: 10px;
+  borderWidth: 0.5px;
+  borderColor: black;
 `;
 
 function Register({navigation}) {
@@ -192,13 +194,6 @@ function Register({navigation}) {
             <Text style={styles.labelText}>유통기한</Text>
             {Platform.OS === 'ios' || (
               <>
-                <Pressable onPress={showDatepicker}>
-                  <TextInput
-                    style={styles.buttonText}
-                    editable={false}
-                    value={date.toISOString().split('T')[0]}
-                  />
-                </Pressable>
                 <Pressable onPress={showDatepicker} style={styles.button}>
                   <Text style={styles.buttonText}>날짜 선택</Text>
                 </Pressable>
@@ -214,9 +209,16 @@ function Register({navigation}) {
                 locale="ko-KO"
               />
             )}
+            <Pressable onPress={showDatepicker}>
+              <TextInput
+                  style={styles.buttonText}
+                  editable={false}
+                  value={date.toISOString().split('T')[0]}
+              />
+            </Pressable>
           </ViewItem>
           <ViewItem>
-            <Text style={styles.labelText}>사진 등록</Text>
+            <Text style={styles.labelText}>사진 등록 {photo && 'OK'}</Text>
             <View style={{display: 'flex', flexDirection: 'row'}}>
               <Pressable onPress={handleChoosePhoto} style={styles.button}>
                 <Text style={styles.buttonText}>앨범에서 선택</Text>
@@ -258,10 +260,12 @@ function Register({navigation}) {
             <Text style={styles.labelText}>상세설명</Text>
             <TextInput
               placeholder={'상세설명'}
-              style={styles.form}
+              style={styles.form2}
               autoCapitalize={'none'}
               autoCorrect={false}
               returnKeyType={'next'}
+              multiline={true}
+              textAlignVertical={'top'}
               onChangeText={e => {
                 setG_detail(e);
               }}
@@ -292,6 +296,17 @@ const pickerSelectStyles = StyleSheet.create({
 });
 
 const styles = StyleSheet.create({
+  form2: {
+    borderRadius: 10,
+    borderWidth: 5,
+    backgroundColor: 'white',
+    borderStyle: 'solid',
+    borderColor: 'white',
+    padding: 10,
+    height: 100,
+    margin: 10,
+    color: 'black',
+  },
   container: {
     flex: 1,
   },
