@@ -7,13 +7,11 @@ import {
 } from "react-native";
 
 import {connect} from "react-redux";
-import GetLocation from "./GetLocation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Settings(props) {
   return (
     <View>
-        <GetLocation/>
         <Pressable
         style={styles.button}
         onPress={()=>{

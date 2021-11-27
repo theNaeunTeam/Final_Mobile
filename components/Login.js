@@ -3,6 +3,7 @@ import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {client} from '../lib/client';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 function Login({navigation}) {
 
@@ -36,6 +37,7 @@ function Login({navigation}) {
   };
 
   return (
+
       <View style={styles.container}>
         <View style={styles.viewTop}></View>
         <View style={styles.viewMiddle}>
@@ -50,6 +52,7 @@ function Login({navigation}) {
                 onChangeText={e => {
                   setId(e);
                 }}
+                keyboardType={'numeric'}
             />
           </View>
           <View>
@@ -68,13 +71,6 @@ function Login({navigation}) {
           </View>
           <Pressable style={styles.button} onPress={login}>
             <Text style={styles.buttonText}>Login</Text>
-          </Pressable>
-          <Pressable
-              onPress={() => {
-                alert('홈페이지로 이동하시겠습니까?');
-              }}
-              style={styles.button}>
-            <Text style={styles.buttonText}>Register</Text>
           </Pressable>
         </View>
       </View>
@@ -95,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   viewBottom: {
-    flex: 0.5,
+    flex: 1,
     backgroundColor: '#152D35',
   },
   form: {

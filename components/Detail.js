@@ -17,7 +17,7 @@ const DetailText = styled.Text`
 const RowView = styled.View`
   flex-direction: row;
   margin: 3px;
-  border-bottom-width: 0.2px;
+  border-bottom-width: 0.5px;
 `;
 const ApproveButton = styled.Pressable`
   background-color: rgba(75, 192, 192, 0.2);

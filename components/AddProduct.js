@@ -1,65 +1,289 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
-    View,
+    Platform,
+    Pressable,
+    StyleSheet,
     Text,
     TextInput,
-    StyleSheet,
-    Pressable,
+    View,
 } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {client} from '../lib/client';
+import ImagePicker from 'react-native-image-crop-picker';
+import {useSelector} from 'react-redux';
 
 function Register({navigation}) {
-    const [id, setId] = useState('');
-    const [pw, setPw] = useState('');
+    const [photo, setPhoto] = useState(null);
+
+    const [g_name, setG_name] = useState('');
+    const [g_count, setG_count] = useState('');
+    const [g_price, setG_price] = useState('');
+    const [g_discount, setG_discount] = useState('');
+    const [g_detail, setG_detail] = useState('');
+    const [g_category, setG_category] = useState('');
+
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+
+    const {authReducer} = useSelector(state => state);
+
+    const validateForm = () => {
+        if(!g_name){
+            alert('상품 이름을 확인해주세요');
+            return false;
+        }
+        if (!photo) {
+            alert('사진을 등록해주세요');
+            return false;
+        }
+        if (!g_count || g_count < 1) {
+            alert('수량을 확인해주세요');
+            return false;
+        }
+        if(!g_price || g_price < 1){
+            alert('상품 정가를 확인해주세요');
+                return false
+            }
+        if(!g_discount || g_discount < 1){
+            alert('상품 할인가를 확인해주세요');
+            return false;
+        }
+        if(!g_category){
+            alert('상품 분류를 확인해주세요');
+            return false;
+        }
+
+        submitForm();
+    };
+
+    const submitForm = () => {
+        const URL = 'https://thenaeunteam.link/owner/addGoods';
+        const formData = new FormData();
+        const data = {
+            uri: photo.path,
+            type: 'multipart/form-data',
+            name: authReducer.o_sNumber,
+        };
+
+        formData.append('file', data);
+        formData.append('g_owner', authReducer.o_sNumber);
+        formData.append('g_name', g_name);
+        formData.append('g_count', g_count);
+        formData.append('g_price', g_price);
+        formData.append('g_discount', g_discount);
+        formData.append('g_detail', g_detail);
+        formData.append('g_expireDate', date.toISOString().split('T')[0]);
+        formData.append('g_category', g_category);
+        formData.append('actionType', 'new');
+
+        client
+            .post(URL, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then(res => {
+                alert('상품 등록 완료');
+            })
+            .catch(error => console.log(error));
+    };
+
+    useEffect(() => {
+        Platform.OS === 'ios' && setShow(true);
+    }, []);
+
+    const handleDateChange = useCallback(
+        (event: Event, date: Date | undefined) => {
+            if (Platform.OS === 'android') {
+                setShow(false);
+            }
+            if (date) setDate(date);
+        },
+        [],
+    );
+
+    const showMode = currentMode => {
+        setShow(true);
+        setMode(currentMode);
+    };
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const handleChoosePhoto = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true,
+            mediaType: 'photo',
+        }).then(image => {
+            setPhoto(image);
+        });
+    };
+
+    const handleTakePhoto = () => {
+        ImagePicker.openCamera({
+            width: 300,
+            height: 400,
+            cropping: true,
+            mediaType: 'photo',
+        }).then(image => {
+            setPhoto(image);
+        });
+    };
+
     return (
-        <View style={styles.container}>
-            <View style={styles.viewMiddle}>
-                <View>
-                    <Text style={styles.labelText}>아이디</Text>
-                    <TextInput placeholder={"아이디"} style={styles.form} autoCapitalize={"none"} autoCorrect={false} returnKeyType={"next"}/>
+        <KeyboardAwareScrollView>
+            <View style={styles.container}>
+                <View style={styles.viewMiddle}>
+                    <View>
+                        <Text style={styles.labelText}>상품이름</Text>
+                        <TextInput
+                            placeholder={'상품이름'}
+                            style={styles.form}
+                            autoCapitalize={'none'}
+                            autoCorrect={false}
+                            returnKeyType={'next'}
+                            onChangeText={e => {
+                                setG_name(e);
+                            }}
+                        />
+                    </View>
+                    <View>
+                        <Text style={styles.labelText}>상품수량</Text>
+                        <TextInput
+                            placeholder={'상품이름'}
+                            style={styles.form}
+                            autoCapitalize={'none'}
+                            autoCorrect={false}
+                            returnKeyType={'next'}
+                            keyboardType={'numeric'}
+                            onChangeText={e => {
+                                setG_count(e);
+                            }}
+                        />
+                    </View>
+                    <View>
+                        <Text style={styles.labelText}>상품분류</Text>
+                        <RNPickerSelect
+                            onValueChange={value => setG_category(value)}
+                            items={[
+                                {label: '마실것', value: '마실것'},
+                                {label: '신선식품', value: '신선식품'},
+                                {label: '가공식품', value: '가공식품'},
+                                {label: '냉동식품', value: '냉동식품'},
+                                {label: '조리/반조리', value: '조리/반조리'},
+                                {label: '식품외 기타', value: '식품외 기타'},
+                            ]}
+                            style={pickerSelectStyles}
+                            placeholder={{label: '상품 분류를 선택해주세요'}}
+                        />
+                    </View>
+                    <View>
+                        <Text style={styles.labelText}>유통기한</Text>
+                        {Platform.OS === 'ios' || (
+                            <>
+                                <Pressable onPress={showDatepicker}>
+                                    <TextInput
+                                        style={styles.buttonText}
+                                        editable={false}
+                                        value={date.toISOString().split('T')[0]}
+                                    />
+                                </Pressable>
+                                <Pressable onPress={showDatepicker} style={styles.button}>
+                                    <Text style={styles.buttonText}>날짜 선택</Text>
+                                </Pressable>
+                            </>
+                        )}
+                        {show && (
+                            <DateTimePicker
+                                testID="dateTimePicker"
+                                value={date}
+                                mode={mode}
+                                display={Platform.OS === 'ios' ? 'inline' : 'default'}
+                                onChange={handleDateChange}
+                                locale="ko-KO"
+                            />
+                        )}
+                    </View>
+                    <View>
+                        <Text style={styles.labelText}>사진 등록</Text>
+                        <View style={{display: 'flex', flexDirection: 'row'}}>
+                            <Pressable onPress={handleChoosePhoto} style={styles.button}>
+                                <Text style={styles.buttonText}>갤러리에서 선택</Text>
+                            </Pressable>
+                            <Pressable onPress={handleTakePhoto} style={styles.button}>
+                                <Text style={styles.buttonText}>새로 찍기</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={styles.labelText}>정가</Text>
+                        <TextInput
+                            placeholder={'정가'}
+                            style={styles.form}
+                            autoCapitalize={'none'}
+                            autoCorrect={false}
+                            returnKeyType={'next'}
+                            keyboardType={'numeric'}
+                            onChangeText={e => {
+                                setG_price(e);
+                            }}
+                        />
+                    </View>
+                    <View>
+                        <Text style={styles.labelText}>할인가</Text>
+                        <TextInput
+                            placeholder={'할인가'}
+                            style={styles.form}
+                            autoCapitalize={'none'}
+                            autoCorrect={false}
+                            returnKeyType={'next'}
+                            keyboardType={'numeric'}
+                            onChangeText={e => {
+                                setG_discount(e);
+                            }}
+                        />
+                    </View>
+                    <View>
+                        <Text style={styles.labelText}>상세설명</Text>
+                        <TextInput
+                            placeholder={'상세설명'}
+                            style={styles.form}
+                            autoCapitalize={'none'}
+                            autoCorrect={false}
+                            returnKeyType={'next'}
+                            onChangeText={e => {
+                                setG_detail(e);
+                            }}
+                        />
+                    </View>
+                    <Pressable onPress={validateForm} style={styles.button}>
+                        <Text style={styles.buttonText}>상품등록</Text>
+                    </Pressable>
                 </View>
-                <View>
-                    <Text style={styles.labelText}>비밀번호</Text>
-                    <TextInput
-                        placeholder={'비밀번호'}
-                        style={styles.form}
-                        autoCapitalize={'none'}
-                        autoCorrect={false}
-                        returnKeyType={'done'}
-                        onChangeText={e => {
-                            setPw(e);
-                        }}
-                    />
-                </View>
-                <View>
-                    <Text style={styles.labelText}>비밀번호확인</Text>
-                    <TextInput placeholder={"비밀번호확인"} style={styles.form} autoCapitalize={"none"} autoCorrect={false} returnKeyType={"next"}/>
-                </View>
-                <View>
-                    <Text style={styles.labelText}>전화번호</Text>
-                    <TextInput placeholder={"01012345678"} style={styles.form} autoCapitalize={"none"} autoCorrect={false} returnKeyType={"next"}/>
-                </View>
-                <View>
-                    <Text style={styles.labelText}>이메일</Text>
-                    <TextInput
-                        placeholder={'이메일'}
-                        style={styles.form}
-                        autoCapitalize={'none'}
-                        autoCorrect={false}
-                        returnKeyType={'next'}
-                        onChangeText={e => {
-                            setId(e);
-                        }}
-                    />
-                </View>
-                <Pressable
-                    onPress={() => {}}
-                    style={styles.button}>
-                    <Text style={styles.buttonText}>상품등록</Text>
-                </Pressable>
             </View>
-        </View>
+        </KeyboardAwareScrollView>
     );
 }
+
+const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+        fontSize: 16,
+        height: 50,
+        width: '100%',
+        padding: 10,
+    },
+    inputAndroid: {
+        fontSize: 16,
+        height: 50,
+        width: '100%',
+        padding: 10
+    },
+});
 
 const styles = StyleSheet.create({
     container: {
@@ -97,7 +321,9 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     button: {
-        backgroundColor: '#D4ECDD',
+        flex: 1,
+        width: '95%',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
         padding: 15,
         borderRadius: 5,
         margin: 10,
@@ -110,7 +336,7 @@ const styles = StyleSheet.create({
     labelText: {
         fontWeight: '600',
         marginLeft: 10,
-        fontSize: 20,
+        fontSize: 15,
     },
 });
 
