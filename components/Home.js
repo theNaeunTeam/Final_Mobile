@@ -12,14 +12,12 @@ import {
 import {connect, useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {client} from '../lib/client';
-import FCM from "./FCM";
-
+import FCM from './FCM';
 
 function Home(props) {
   const [list, setList] = useState([]);
   const [list2, setList2] = useState([]);
   const [list3, setList3] = useState([]);
-  const [disable, setDisable] = useState(true);
   const [loading, setLoading] = useState(true);
 
   const {authReducer, refreshReducer} = useSelector(state => state);
@@ -27,11 +25,7 @@ function Home(props) {
 
   useEffect(() => {
     init();
-    // Location.getCurrentPositionAsync().then(res => console.log(res));
-    // Location.requestForegroundPermissionsAsync();
   }, [refreshReducer]);
-
-
 
   useEffect(() => {
     const backAction = () => {
@@ -92,7 +86,7 @@ function Home(props) {
           <ActivityIndicator size="large" />
         ) : (
           <>
-            <FCM/>
+            <FCM />
             <Text style={styles.buttonTextAppr}>
               최초 승인 대기 {list3.length} 건이 있습니다.
             </Text>
@@ -120,7 +114,7 @@ function Home(props) {
                   }}>
                   <View key={`view${idx}`}>
                     <Text style={styles.buttonText}>
-                      {data.g_name} 수량:{data.r_count}
+                      {data.g_name} {data.r_count}개
                     </Text>
                     <Text key={`name${idx}`}>
                       주문자 : {data.r_u_id} 방문예정시간:{data.r_firstTime}
@@ -139,6 +133,7 @@ function Home(props) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'rgba(240, 233, 210, 0.5)',
     flex: 1,
   },
   viewTop: {
@@ -212,6 +207,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#112031',
+    textAlign: 'center',
   },
 });
 

@@ -1,18 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
-  View,
   Button,
   Platform,
-  Text,
-  Alert,
+  Pressable,
   StyleSheet,
   TextInput,
-  Pressable,
-  ScrollView,
+  View,
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {MaterialCommunityIcons} from '@expo/vector-icons';
-import axios from 'axios';
 
 function Log() {
   const [date, setDate] = useState(new Date());
@@ -39,7 +34,6 @@ function Log() {
         setShow(false);
       }
       if (date) setDate(date);
-
     },
     [],
   );
@@ -107,7 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     textAlign: 'center',
-    color:'black',
+    color: 'black',
   },
   item: {
     borderWidth: 1,

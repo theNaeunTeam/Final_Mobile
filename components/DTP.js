@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Button, Platform} from 'react-native';
+import {Button, Platform, View} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 function DTP() {
@@ -11,7 +11,7 @@ function DTP() {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
-    console.log(date)
+    console.log(date);
   };
 
   const showMode = currentMode => {

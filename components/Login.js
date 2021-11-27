@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import {client} from '../lib/client';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import logo from '../img/image-removebg-preview.png';
 
 function Login({navigation}) {
-
   const dispatch = useDispatch();
 
   const [id, setId] = useState('');
@@ -37,57 +43,61 @@ function Login({navigation}) {
   };
 
   return (
-
-      <View style={styles.container}>
-        <View style={styles.viewTop}></View>
-        <View style={styles.viewMiddle}>
-          <View>
-            <Text style={styles.labelText}>사업자번호</Text>
-            <TextInput
-                placeholder={'하이픈 없이 입력해 주세요'}
-                style={styles.form}
-                autoCapitalize={'none'}
-                autoCorrect={false}
-                returnKeyType={'next'}
-                onChangeText={e => {
-                  setId(e);
-                }}
-                keyboardType={'numeric'}
-            />
-          </View>
-          <View>
-            <Text style={styles.labelText}>비밀번호</Text>
-            <TextInput
-                placeholder={'비밀번호'}
-                style={styles.form}
-                autoCapitalize={'none'}
-                autoCorrect={false}
-                returnKeyType={'done'}
-                onChangeText={e => {
-                  setPw(e);
-                }}
-                secureTextEntry={true}
-            />
-          </View>
-          <Pressable style={styles.button} onPress={login}>
-            <Text style={styles.buttonText}>Login</Text>
-          </Pressable>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.viewTop}>
+        <Image source={logo} resizeMode="contain" style={{width: '100%'}} />
       </View>
+      <View style={styles.viewMiddle}>
+        <View>
+          <Text style={styles.labelText}>사업자번호</Text>
+          <TextInput
+            placeholder={'하이픈 없이 입력해 주세요'}
+            style={styles.form}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            returnKeyType={'next'}
+            onChangeText={e => {
+              setId(e);
+            }}
+            keyboardType={'numeric'}
+          />
+        </View>
+        <View>
+          <Text style={styles.labelText}>비밀번호</Text>
+          <TextInput
+            placeholder={'비밀번호'}
+            style={styles.form}
+            autoCapitalize={'none'}
+            autoCorrect={false}
+            returnKeyType={'done'}
+            onChangeText={e => {
+              setPw(e);
+            }}
+            secureTextEntry={true}
+          />
+        </View>
+        <Pressable style={styles.button} onPress={login}>
+          <Text style={styles.buttonText}>로그인</Text>
+        </Pressable>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#E6DDC4',
   },
   viewTop: {
     flex: 1,
-    backgroundColor: '#D4ECDD',
+    backgroundColor: '#F0E9D2',
+    alignItems: 'center',
   },
   viewMiddle: {
+    margin: 50,
     flex: 2,
-    backgroundColor: '#345B63',
+    backgroundColor: '#E6DDC4',
     justifyContent: 'space-evenly',
   },
   viewBottom: {
@@ -114,18 +124,19 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   button: {
-    backgroundColor: '#D4ECDD',
+    backgroundColor: '#678983',
     padding: 15,
     borderRadius: 5,
     margin: 10,
   },
   buttonText: {
     fontSize: 20,
-    color: '#112031',
+    color: 'white',
     textAlign: 'center',
+    fontWeight:'bold'
   },
   labelText: {
-    color: 'white',
+    color: '#181D31',
     fontWeight: '600',
     marginLeft: 10,
     fontSize: 20,

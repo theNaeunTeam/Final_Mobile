@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
 import {client} from '../lib/client';
@@ -14,32 +14,33 @@ const DetailText = styled.Text`
   font-weight: bold;
   font-size: 15px;
 `;
+
 const RowView = styled.View`
   flex-direction: row;
-  margin: 3px;
+  margin: 5px;
   border-bottom-width: 0.5px;
 `;
 const ApproveButton = styled.Pressable`
-  background-color: rgba(75, 192, 192, 0.2);
+  background-color: rgba(75, 192, 192, 0.4);
   padding: 15px;
   border-radius: 5px;
-  margin: 10px;
+  margin: 20px;
   align-items: center;
 `;
 
 const DenyButton = styled.Pressable`
-  background-color: rgba(255, 99, 132, 0.2);
+  background-color: rgba(255, 99, 132, 0.4);
   padding: 15px;
   border-radius: 5px;
-  margin: 10px;
+  margin: 20px;
   align-items: center;
 `;
 
 const NoShowButton = styled.Pressable`
-  background-color: rgba(153, 102, 255, 0.2);
+  background-color: rgba(153, 102, 255, 0.4);
   padding: 15px;
   border-radius: 5px;
-  margin: 10px;
+  margin: 20px;
   align-items: center;
 `;
 
@@ -69,78 +70,80 @@ export default function Detail(props) {
 
   return (
     <ViewContainer style={styles.container}>
-      <RowView>
-        <DetailText>상품 명 : </DetailText>
-        <DetailText>{goodsReducer.g_name}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>상품 분류 : </DetailText>
-        <DetailText>{goodsReducer.g_category}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>원가 : </DetailText>
-        <DetailText>₩{goodsReducer.g_price}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>할인가: </DetailText>
-        <DetailText>₩{goodsReducer.g_discount}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>예약 수량 : </DetailText>
-        <DetailText>{goodsReducer.r_count}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>총 결제 예정 금액 : </DetailText>
-        <DetailText>₩{goodsReducer.r_pay}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>유통기한 : </DetailText>
-        <DetailText>{goodsReducer.g_expireDate}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>상품 고유 번호 : </DetailText>
-        <DetailText>{goodsReducer.r_g_code}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>상품 상태 : </DetailText>
-        <DetailText>{goodsReducer.g_status}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>예약 고유 번호 : </DetailText>
-        <DetailText>{goodsReducer.r_code}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>예약 시간 : </DetailText>
-        <DetailText>{goodsReducer.r_firstTime}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>예약 상태 코드 : </DetailText>
-        <DetailText>{goodsReducer.r_status}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>예약자 아이디 : </DetailText>
-        <DetailText>{goodsReducer.r_u_id}</DetailText>
-      </RowView>
-      <RowView>
-        <DetailText>요청사항 : </DetailText>
-        <DetailText>{goodsReducer.r_customOrder}</DetailText>
-      </RowView>
+      <View>
+        <RowView>
+          <DetailText>상품 명 : </DetailText>
+          <DetailText>{goodsReducer.g_name}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>상품 분류 : </DetailText>
+          <DetailText>{goodsReducer.g_category}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>원가 : </DetailText>
+          <DetailText>₩{goodsReducer.g_price}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>할인가: </DetailText>
+          <DetailText>₩{goodsReducer.g_discount}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>예약 수량 : </DetailText>
+          <DetailText>{goodsReducer.r_count}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>총 결제 예정 금액 : </DetailText>
+          <DetailText>₩{goodsReducer.r_pay}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>유통기한 : </DetailText>
+          <DetailText>{goodsReducer.g_expireDate}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>상품 고유 번호 : </DetailText>
+          <DetailText>{goodsReducer.r_g_code}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>상품 상태 : </DetailText>
+          <DetailText>{goodsReducer.g_status}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>예약 고유 번호 : </DetailText>
+          <DetailText>{goodsReducer.r_code}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>예약 시간 : </DetailText>
+          <DetailText>{goodsReducer.r_firstTime}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>예약 상태 코드 : </DetailText>
+          <DetailText>{goodsReducer.r_status}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>예약자 아이디 : </DetailText>
+          <DetailText>{goodsReducer.r_u_id}</DetailText>
+        </RowView>
+        <RowView>
+          <DetailText>요청사항 : </DetailText>
+          <DetailText>{goodsReducer.r_customOrder}</DetailText>
+        </RowView>
+      </View>
       {goodsReducer.r_status === 0 ? (
         <>
           <ApproveButton onPress={() => changeGoodsStatus(1)}>
-            <Text>승 인</Text>
+            <Text style={styles.buttonText}>승 인</Text>
           </ApproveButton>
           <DenyButton onPress={() => changeGoodsStatus(2)}>
-            <Text>거 절</Text>
+            <Text style={styles.buttonText}>거 절</Text>
           </DenyButton>
         </>
       ) : (
         <>
           <NoShowButton onPress={() => changeGoodsStatus(4)}>
-            <Text>노 쇼</Text>
+            <Text style={styles.buttonText}>노 쇼</Text>
           </NoShowButton>
           <Pressable style={styles.button} onPress={() => changeGoodsStatus(3)}>
-            <Text>판 매 완 료</Text>
+            <Text style={styles.buttonText}>판 매 완 료</Text>
           </Pressable>
         </>
       )}
@@ -150,9 +153,11 @@ export default function Detail(props) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'rgba(240, 233, 210, 0.7)',
     flex: 1,
     margin: 10,
     padding: 10,
+    justifyContent:"space-around",
   },
   viewTop: {
     flex: 1,
@@ -190,7 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#D4ECDD',
     padding: 15,
     borderRadius: 5,
-    margin: 10,
+    margin: 20,
     alignItems: 'center',
   },
   buttonText: {
