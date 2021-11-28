@@ -283,7 +283,7 @@ function Register({navigation}) {
             onPress={loading ? null : validateForm}
             style={styles.button}>
               <Text style={styles.buttonText}>상품등록</Text>
-              {loading || <ActivityIndicator />}
+              {loading && <ActivityIndicator />}
           </Pressable>
         </View>
       </View>

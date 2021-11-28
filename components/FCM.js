@@ -7,14 +7,9 @@ import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function FCM() {
-  const [show, setShow] = useState(false);
+
   const [isTokenFound, setTokenFound] = useState(false);
-  const [notification, setNotification] = useState({
-    title: '',
-    body: '',
-    etc: '',
-    img: '',
-  });
+
 
   const dispatch = useDispatch();
 

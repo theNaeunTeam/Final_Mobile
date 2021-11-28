@@ -2,7 +2,7 @@ import type {Node} from 'react';
 import React, {useCallback, useEffect, useState} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import {Entypo, Ionicons} from '@expo/vector-icons';
+import {Entypo} from '@expo/vector-icons';
 import * as Font from 'expo-font';
 import Login from './components/Login';
 import {NavigationContainer} from '@react-navigation/native';
@@ -15,9 +15,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {authReducer} from './reducers/auth';
 import {client} from './lib/client';
 import {goodsReducer} from './reducers/goods';
-import Detail from "./components/Detail";
-import {refreshReducer} from "./reducers/refresh";
-
+import Detail from './components/Detail';
+import {refreshReducer} from './reducers/refresh';
 
 const App: () => Node = () => {
     const [appIsReady, setAppIsReady] = useState(false);
@@ -108,19 +107,22 @@ const App: () => Node = () => {
                                 headerShown: false,
                             }}
                         />
-                        <Stack.Screen name={'예약상세'} component={Detail}
-                                      options={{
-                                          headerStyle: {
-                                              backgroundColor: '#ffbf3f',
-                                          },
-                                          // headerTintColor: '#fff',
-                                          headerTitleStyle: {
-                                              fontWeight: 'bold',
-                                              color: 'black',
-                                              fontSize: 20,
-                                          },
-                                          headerTitleAlign: 'center',
-                                      }}/>
+                        <Stack.Screen
+                            name={'예약상세'}
+                            component={Detail}
+                            options={{
+                                headerStyle: {
+                                    backgroundColor: '#ffbf3f',
+                                },
+                                // headerTintColor: '#fff',
+                                headerTitleStyle: {
+                                    fontWeight: 'bold',
+                                    color: 'black',
+                                    fontSize: 20,
+                                },
+                                headerTitleAlign: 'center',
+                            }}
+                        />
                     </Stack.Navigator>
                 </NavigationContainer>
             </SafeAreaView>

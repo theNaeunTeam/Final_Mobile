@@ -86,7 +86,7 @@ function Login({navigation}) {
             </View>
             <Pressable style={styles.button} onPress={loading ? null : login}>
                 <Text style={styles.buttonText}>로그인</Text>
-                {loading || <ActivityIndicator/>}
+                {loading && <ActivityIndicator/>}
             </Pressable>
           </View>
         </View>
