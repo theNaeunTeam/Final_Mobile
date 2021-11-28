@@ -36,7 +36,7 @@ function Settings(props) {
             style={styles.button}
             onPress={async () => {
               AsyncStorage.removeItem('noPush');
-              messaging().unregisterDeviceForRemoteMessages()
+              messaging().registerDeviceForRemoteMessages()
                   .then(res=>{
                     console.log(res);
                     alert('알림을 다시 받습니다');
