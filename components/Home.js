@@ -23,7 +23,7 @@ function Home(props) {
   const {refreshReducer} = useSelector(state => state);
   const dispatch = useDispatch();
 
-  useEffect( () => {
+  useEffect(() => {
     init();
   }, [refreshReducer]);
 

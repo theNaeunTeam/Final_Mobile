@@ -68,16 +68,16 @@ function Main(props) {
           drawerIcon: props => (
             <MaterialIcons name="settings" size={24} color="black" />
           ),
-            headerStyle: {
-                backgroundColor: '#ffbf3f',
-            },
-            // headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-                color: 'black',
-                fontSize: 20,
-            },
-            headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#ffbf3f',
+          },
+          // headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            color: 'black',
+            fontSize: 20,
+          },
+          headerTitleAlign: 'center',
         }}
       />
     </Drawer.Navigator>

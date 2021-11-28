@@ -19,8 +19,8 @@ import styled from 'styled-components/native';
 const ViewItem = styled.View`
   margin: 10px;
   padding: 10px;
-  borderWidth: 0.5px;
-  borderColor: black;
+  borderwidth: 0.5px;
+  bordercolor: black;
 `;
 
 function Register({navigation}) {
@@ -282,8 +282,8 @@ function Register({navigation}) {
           <Pressable
             onPress={loading ? null : validateForm}
             style={styles.button}>
-              <Text style={styles.buttonText}>상품등록</Text>
-              {loading && <ActivityIndicator />}
+            <Text style={styles.buttonText}>상품등록</Text>
+            {loading && <ActivityIndicator />}
           </Pressable>
         </View>
       </View>
@@ -355,8 +355,8 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    flexDirection:"row",
-    justifyContent:'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
     width: '95%',
     backgroundColor: 'rgba(75, 192, 192, 0.2)',
     padding: 15,

@@ -7,9 +7,7 @@ import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function FCM() {
-
   const [isTokenFound, setTokenFound] = useState(false);
-
 
   const dispatch = useDispatch();
 

@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import styled from 'styled-components/native';
 import {client} from '../lib/client';
 
-
 const DetailText = styled.Text`
   flex: 1;
   font-weight: bold;
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 10,
     padding: 15,
-    justifyContent:"space-around",
+    justifyContent: 'space-around',
   },
   viewTop: {
     flex: 1,
