@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   Platform,
   Pressable,
   StyleSheet,
@@ -23,6 +24,8 @@ const ViewItem = styled.View`
 `;
 
 function Register({navigation}) {
+  const [loading, setLoading] = useState(false);
+
   const [photo, setPhoto] = useState(null);
 
   const [g_name, setG_name] = useState('');
@@ -68,6 +71,7 @@ function Register({navigation}) {
   };
 
   const submitForm = () => {
+    setLoading(true);
     const URL = 'https://thenaeunteam.link/owner/addGoods';
     const formData = new FormData();
     const data = {
@@ -96,7 +100,11 @@ function Register({navigation}) {
       .then(res => {
         alert('상품 등록 완료');
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        alert('네트워크 에러');
+        console.log(error);
+      })
+      .finally(setLoading(false));
   };
 
   useEffect(() => {
@@ -211,9 +219,9 @@ function Register({navigation}) {
             )}
             <Pressable onPress={showDatepicker}>
               <TextInput
-                  style={styles.buttonText}
-                  editable={false}
-                  value={date.toISOString().split('T')[0]}
+                style={styles.buttonText}
+                editable={false}
+                value={date.toISOString().split('T')[0]}
               />
             </Pressable>
           </ViewItem>
@@ -271,8 +279,11 @@ function Register({navigation}) {
               }}
             />
           </ViewItem>
-          <Pressable onPress={validateForm} style={styles.button}>
-            <Text style={styles.buttonText}>상품등록</Text>
+          <Pressable
+            onPress={loading ? null : validateForm}
+            style={styles.button}>
+              <Text style={styles.buttonText}>상품등록</Text>
+              {loading || <ActivityIndicator />}
           </Pressable>
         </View>
       </View>
@@ -344,6 +355,8 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
+    flexDirection:"row",
+    justifyContent:'center',
     width: '95%',
     backgroundColor: 'rgba(75, 192, 192, 0.2)',
     padding: 15,

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  ActivityIndicator,
   Image,
   Keyboard,
   Pressable,
@@ -17,10 +18,12 @@ import logo from '../img/image-removebg-preview.png';
 function Login({navigation}) {
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(false);
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
   const login = async () => {
+    setLoading(true);
     const URL = 'https://thenaeunteam.link/common/ownerlogin';
 
     const data = {
@@ -41,6 +44,8 @@ function Login({navigation}) {
     } catch (e) {
       alert('사업자번호 및 비밀번호를 확인해 주세요');
       console.log(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,8 +84,9 @@ function Login({navigation}) {
                   secureTextEntry={true}
               />
             </View>
-            <Pressable style={styles.button} onPress={login}>
-              <Text style={styles.buttonText}>로그인</Text>
+            <Pressable style={styles.button} onPress={loading ? null : login}>
+                <Text style={styles.buttonText}>로그인</Text>
+                {loading || <ActivityIndicator/>}
             </Pressable>
           </View>
         </View>
@@ -129,6 +135,9 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   button: {
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:'center',
     backgroundColor: '#678983',
     padding: 15,
     borderRadius: 5,
