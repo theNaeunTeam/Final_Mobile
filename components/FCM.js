@@ -61,19 +61,6 @@ export default function FCM() {
     console.log('Message handled in the background!', remoteMessage);
   });
 
-  // LOG  Message handled in the background! {"data": {"body": "예약현황 페이지를 확인해 주세요", "image": " ", "r_customOrder": "제가 직접 받음", "r_firstTime": "18:00", "title": "1개의 새 예약건이 있습니다"}, "from": "416664792102", "messageId": "0:1637916009602582%b4a2312af9fd7ecd", "sentTime": 1637916009593, "ttl": 2419200}
-
-  // messaging().onNotificationOpenedApp(remoteMessage => {
-  //     console.log('[push] onNotificationOpenedApp', remoteMessage);
-  // });
-  //
-  // messaging()
-  //     .getInitialNotification()
-  //     .then(remoteMessage => {
-  //         if (remoteMessage) {
-  //             console.log('[push] getInitialNotification', remoteMessage);
-  //         }
-  //     });
 
   AppRegistry.registerComponent('app', () => App);
 

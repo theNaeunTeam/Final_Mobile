@@ -132,7 +132,7 @@ function Register({navigation}) {
   const handleChoosePhoto = () => {
     ImagePicker.openPicker({
       width: 300,
-      height: 400,
+      height: 300,
       cropping: true,
       mediaType: 'photo',
     }).then(image => {
@@ -143,7 +143,7 @@ function Register({navigation}) {
   const handleTakePhoto = () => {
     ImagePicker.openCamera({
       width: 300,
-      height: 400,
+      height: 300,
       cropping: true,
       mediaType: 'photo',
     }).then(image => {

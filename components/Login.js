@@ -13,7 +13,7 @@ import {
 import {client} from '../lib/client';
 import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import logo from '../img/image-removebg-preview.png';
+import logo from '../img/TandaLogo.png';
 
 function Login({navigation}) {
   const dispatch = useDispatch();
@@ -156,13 +156,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-
-// function setIdPw(state) {
-//   return {
-//     state: state,
-//   };
-// }
-
-// export default connect(setIdPw)(Login);
 
 export default Login;

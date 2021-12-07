@@ -91,5 +91,3 @@ function getLoading(state) {
 }
 
 export default connect(getLoading)(Main);
-
-// export default Main;
